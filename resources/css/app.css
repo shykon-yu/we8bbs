@@ -62,13 +62,3 @@ a:hover{
 img.my_captcha{
     cursor: pointer;
 }
-@import 'bootstrap';
-
-.my_navbar {
-    background: #2c3e50 !important;
-}
-@import 'bootstrap';
-
-.my_navbar {
-    background: #2c3e50 !important;
-}
