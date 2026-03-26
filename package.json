@@ -5,17 +5,16 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "@popperjs/core": "^2.10.2",
+        "@popperjs/core": "^2.11.6",
         "axios": "^1.1.2",
         "bootstrap": "^5.3.8",
         "laravel-vite-plugin": "^0.7.2",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "sass": "^1.98.0",
-        "sass-loader": "^11.0.1",
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "saas": "^1.0.0"
+        "@fortawesome/fontawesome-free": "^7.2.0"
     }
 }
