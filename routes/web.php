@@ -24,17 +24,25 @@ Route::get('register', [\App\Http\Controllers\Auth\RegisterController::class,'sh
 Route::post('register',[\App\Http\Controllers\Auth\RegisterController::class,'register'])->name('register');
 
 
-//// 密码重置相关路由
-//Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-//Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-//Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-//Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+// 密码重置相关路由
+Route::get('password/reset', [\App\Http\Controllers\Auth\ForgotPasswordController::class,'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [\App\Http\Controllers\Auth\ForgotPasswordController::class,'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [\App\Http\Controllers\Auth\ResetPasswordController::class,'showResetForm'])->name('password.reset');
+Route::post('password/reset', [\App\Http\Controllers\Auth\ResetPasswordController::class,'reset'])->name('password.update');
 //
-//// 再次确认密码（重要操作前提示）
-//Route::get('password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
-//Route::post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
+// 再次确认密码（重要操作前提示）
+Route::get('password/confirm', [\App\Http\Controllers\Auth\ConfirmPasswordController::class,'showConfirmForm'])->name('password.confirm');
+Route::post('password/confirm', [\App\Http\Controllers\Auth\ConfirmPasswordController::class,'confirm']);
 //
 // 邮箱认证相关路由
 Route::get('email/verify', [\App\Http\Controllers\Auth\VerificationController::class,'show'])->name('verification.notice');
 Route::get('email/verify/{id}/{hash}', [\App\Http\Controllers\Auth\VerificationController::class,'verify'])->name('verification.verify');
 Route::post('email/resend', [\App\Http\Controllers\Auth\VerificationController::class,'resend'])->name('verification.resend');
+
+// 游客可以看个人页面
+Route::get('users/{user}', [\App\Http\Controllers\UsersController::class, 'show'])->name('users.show');
+
+// 编辑、更新需要登录
+Route::resource('users', \App\Http\Controllers\UsersController::class)
+    ->only(['edit', 'update'])
+    ->middleware('auth');
