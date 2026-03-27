@@ -33,13 +33,13 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="text-center">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{route('users.show',Auth::id())}}">
                                 <i class="fa-solid fa-user-tie"></i>
                                 个人空间
                             </a>
                         </li>
                         <li class="text-center">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{route('users.edit',Auth::id())}}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                                 编辑资料
                             </a>
