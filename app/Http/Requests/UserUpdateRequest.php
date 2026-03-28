@@ -39,8 +39,13 @@ class UserUpdateRequest extends FormRequest
                 }],
             'email'=>['required','email'],
             'introduction' => ['nullable', 'between:1,300'], // 加了 nullable
-            'avatar' => ['image', 'mimes:jpeg,jpg,png,gif', 'dimensions:min_width=300,min_height=300'],
-
+            //'avatar' => ['image', 'mimes:jpeg,jpg,png,gif', 'dimensions:min_width=300,min_height=300'],
+            'avatar' => ['image',
+                function ($attr, $file, $fail) {
+                    if (!in_array(strtolower($file->getClientOriginalExtension()), ['jpg','jpeg','png','gif'])) {
+                        $fail("{$attr}格式不正确");
+                    }
+                }]
         ];
     }
     public function messages()

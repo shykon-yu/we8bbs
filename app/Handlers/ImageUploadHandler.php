@@ -8,7 +8,8 @@ class ImageUploadHandler{
     protected $allowed_ext = ['png', 'jpg', 'jpeg', 'gif'];
     public function save($file,$folder,$model_id,$max_weidth = 800)
     {
-        if( !in_array($file->getClientOriginalExtension(), $this->allowed_ext) ){
+
+        if( !in_array(strtolower($file->getClientOriginalExtension()), $this->allowed_ext) ){
             return false;
         }
         //文件夹路径
@@ -24,6 +25,15 @@ class ImageUploadHandler{
 
         $file_path = $upload_path.'/'.$filename;
 
+
+        //  2. 获取目录（自动处理多级目录）
+        //$dir = dirname($upload_path);
+//dd($upload_path);
+        //  3. 代码内创建目录 + 强制权限（Sail/Mac 必加）
+        if (!file_exists($upload_path)) {
+            mkdir($upload_path, 0777, true);
+            chmod($upload_path, 0777);
+        }
 
         if( $extension != 'gif' ){
             $this->reduceSize($file,$file_path,$max_weidth);
