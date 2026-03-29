@@ -46,3 +46,10 @@ Route::get('users/{user}', [\App\Http\Controllers\UsersController::class, 'show'
 Route::resource('users', \App\Http\Controllers\UsersController::class)
     ->only(['edit', 'update'])
     ->middleware('auth');
+
+// 帖子资源路由
+Route::resource('topics',\App\Http\Controllers\TopicController::class);
+Route::post('upload_image',[\App\Http\Controllers\TopicController::class,'uploadImage'])->name('topics.upload_image');
+
+//分类资源路由
+Route::resource('categories',\App\Http\Controllers\CategoriesController::class)->only(['show']);

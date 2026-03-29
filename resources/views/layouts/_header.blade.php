@@ -10,10 +10,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">首页</a>
+                    <a class="nav-link {{active_class(if_route('topics.index'))}}" aria-current="page" href="{{route('topics.index')}}">帖子</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link {{category_navbar_active(1)}}" href="{{route('categories.show',1)}}">WRH</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{category_navbar_active(2)}}" href="{{route('categories.show',2)}}">NO.1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{category_navbar_active(3)}}" href="{{route('categories.show',3)}}">BF</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{category_navbar_active(4)}}" href="{{route('categories.show',4)}}">AJ</a>
                 </li>
             </ul>
             @guest
@@ -26,6 +35,12 @@
                     </li>
                 </ul>
             @else
+                <li class="nav-item d-flex align-items-center  me-3">
+                    <a href="{{route('topics.create')}}" title="我要发帖" class="text-primary text-decoration-none d-flex align-items-center gap-1">
+                        <i class="fa-solid fa-plus"></i>
+                        发帖
+                    </a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="{{url('fakers/avatars/1.png')}}" width="40" alt="avatar" class="img-thumbnail"/>
