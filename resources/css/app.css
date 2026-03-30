@@ -21,6 +21,7 @@ footer.footer{
     width: 100%;
     bottom: 0;
 }
+
 /* 页脚链接颜色 */
 .footer a {
     color: #e9ecef !important; /* 蓝色 默认色 */
@@ -47,7 +48,6 @@ a:hover{
     font-weight: bold !important;
 }
 .my_navbar{
-    //border-top: 4px solid darkcyan;
     margin-bottom: 16px;
 }
 /* 高亮首页 */
@@ -62,4 +62,13 @@ a:hover{
 
 img.my_captcha{
     cursor: pointer;
+}
+
+nav.my_navbar{
+    border-top: 4px solid darkcyan;
+    margin-bottom: 36px;
+}
+
+ul, li {
+    list-style: none !important;
 }
