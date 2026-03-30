@@ -40,6 +40,8 @@ use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Topic> $topics
+ * @property-read int|null $topics_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail
@@ -80,5 +82,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function topics(){
         return $this->hasMany(Topic::class,'user_id','id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class,'user_id','id');
+    }
+
+    public function isAuthorOf($model)
+    {
+        return $this->id == $model->user_id;
     }
 }

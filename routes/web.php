@@ -48,7 +48,8 @@ Route::resource('users', \App\Http\Controllers\UsersController::class)
     ->middleware('auth');
 
 // 帖子资源路由
-Route::resource('topics',\App\Http\Controllers\TopicController::class);
+Route::resource('topics',\App\Http\Controllers\TopicController::class)->except('show');
+Route::get('topics/{topic}/{slug?}', [\App\Http\Controllers\TopicController::class,'show'])->name('topics.show');
 Route::post('upload_image',[\App\Http\Controllers\TopicController::class,'uploadImage'])->name('topics.upload_image');
 
 //分类资源路由

@@ -7,7 +7,7 @@
                 </a>
                 <div class="flex-grow-1 px-2 d-flex flex-column">
                     <a class="text-decoration-none text-success"
-                       href="{{route('topics.show',$topic->id)}}">{{$topic->title}}
+                       href="{{$topic->link()}}">{{$topic->title}}
                     </a>
                     <small>
                         <a href="{{route('categories.show',$topic->category_id)}}" class="text-muted text-decoration-none">

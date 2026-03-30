@@ -6,7 +6,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver; // 这里必须完整引入
 class ImageUploadHandler{
     protected $allowed_ext = ['png', 'jpg', 'jpeg', 'gif'];
-    public function save($file,$folder,$model_id,$max_weidth = 800)
+    public function save($file,$folder,$model_id,$max_weidth = 700,$max_height = 700,$unlink=false)
     {
 
         if( !in_array(strtolower($file->getClientOriginalExtension()), $this->allowed_ext) ){
@@ -36,12 +36,15 @@ class ImageUploadHandler{
         }
 
         if( $extension != 'gif' ){
-            $this->reduceSize($file,$file_path,$max_weidth);
+            $this->reduceSize($file,$file_path,$max_weidth,$max_height);
         }else{
             $file->move($upload_path,$filename);
         }
 
-        $this->delOldImage($model_id);
+        //删除旧的图片
+        if($unlink){
+            $this->delOldImage($model_id);
+        }
 
         return [
             //'path' => config('app.url').'/'.$folder_name.'/'.$filename,
@@ -50,12 +53,12 @@ class ImageUploadHandler{
     }
 
     //缩放
-    public function reduceSize($file,$file_path,$max_width)
+    public function reduceSize($file,$file_path,$max_width,$max_height)
     {
         $manager = new ImageManager(new Driver()); // 实例化
         $img = $manager->read($file->getPathname());
         // 等比例缩放，最大800px
-        $img->scale(width: $max_width)->scaleDown();
+        $img->scale(width: $max_width,height: $max_height)->scaleDown();
         // 保存，质量80%
         $res = $img->save($file_path, 80);
     }
@@ -64,4 +67,5 @@ class ImageUploadHandler{
         $path_url = public_path().'/'.$user->avatar;
         @unlink($path_url);
     }
+
 }

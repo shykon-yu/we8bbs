@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Reply;
+use App\Models\Topic;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Database\Eloquent\Model;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,10 +16,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-           UserSeeder::class,
-            TopicSeeder::class,
-        ]);
+//        Topic::withoutEvents(function () {
+
+            $this->call([
+                UserSeeder::class,
+                TopicSeeder::class,
+                ReplySeeder::class,
+            ]);
+
+//        });
+//        $this->call([
+//           UserSeeder::class,
+//            TopicSeeder::class,
+//            ReplySeeder::class,
+//        ]);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
