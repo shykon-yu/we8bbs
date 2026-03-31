@@ -54,3 +54,6 @@ Route::post('upload_image',[\App\Http\Controllers\TopicController::class,'upload
 
 //分类资源路由
 Route::resource('categories',\App\Http\Controllers\CategoriesController::class)->only(['show']);
+
+//帖子回复资源路由
+Route::resource('replies',\App\Http\Controllers\ReplyController::class)->only(['store','destroy'])->middleware('auth');

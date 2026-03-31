@@ -65,7 +65,7 @@ class ReplyPolicy
      */
     public function delete(User $user, Reply $reply)
     {
-        //
+        return $user->isAuthorOf($reply) || $user->isAuthorOf($reply->topic);
     }
 
     /**

@@ -40,13 +40,18 @@
                     <div class="card-body">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">TA的帖子</a>
+                                <a class="nav-link {{active_class(if_query('tab',null))}}" aria-current="page" href="{{route('users.show',$user->id)}}">TA的帖子</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">TA的评论</a>
+                                <a class="nav-link {{active_class(if_query('tab','replies'))}}" href="{{route('users.show',[$user->id,'tab'=>'replies'])}}">TA的评论</a>
                             </li>
                         </ul>
-                        @include('users._topics',['topics'=>$user->topics()->recent()->paginate(10)])
+                        @if(if_query('tab','replies'))
+                            @include('users._replies',['replies'=>$user->replies()->with('topic')->recent()->paginate(10)])
+                        @else
+                            @include('users._topics',['topics'=>$user->topics()->recent()->paginate(10)])
+                        @endif
+
                     </div>
                 </div>
             </div>
