@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Reply;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TopicSeeder extends Seeder
+class ReplySeeder extends Seeder
 {
-    use WithoutModelEvents;
     /**
      * Run the database seeds.
      *
@@ -15,6 +15,6 @@ class TopicSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Topic::factory(100)->create();
+        Reply::factory()->count(1000)->create();
     }
 }

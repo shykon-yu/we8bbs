@@ -38,6 +38,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Topic whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Topic whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Topic whereViewCount($value)
+ * @property-read \App\Models\Category|null $category
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Topic recent()
+ * @method static \Illuminate\Database\Eloquent\Builder|Topic recentReplied()
+ * @method static \Illuminate\Database\Eloquent\Builder|Topic withOrder($order)
  * @mixin \Eloquent
  */
 class Topic extends Model
@@ -45,6 +50,9 @@ class Topic extends Model
     use HasFactory;
     protected $fillable = ['title','content','desc','slug','category_id'];
 
+    public function link($params=[]){
+        return route('topics.show',array_merge([$this->id,$this->slug],$params));
+    }
     public function user()
     {
         return $this->belongsTo(User::class,'user_id','id');
@@ -53,6 +61,11 @@ class Topic extends Model
     public function category()
     {
         return $this->belongsTo(Category::class,'category_id','id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     public function scopeWithOrder($query,$order)

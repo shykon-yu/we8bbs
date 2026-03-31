@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Handlers\ImageUploadHandler;
+use App\Handlers\TranslateTopicTitleHandler;
 use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
 use App\Models\Category;
@@ -50,7 +51,7 @@ class TopicController extends Controller
         $topic->fill($request->all());
         $topic->user_id = $request->user()->id;
         $topic->save();
-        return redirect()->route('topics.show', $topic->id)->with('succses', '帖子创建成功');
+        return redirect()->to($topic->link())->with('succses', '帖子创建成功');
     }
 
     /**
@@ -59,9 +60,13 @@ class TopicController extends Controller
      * @param  \App\Models\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function show(Topic $topic)
+    public function show(Topic $topic,Request $request)
     {
-        //
+        if( !empty($request->slug) && $request->slug != $topic->slug ){
+            return redirect($topic->link(),301);
+        }
+        //dd($topic->user());
+        return view('topics.show', compact('topic'));
     }
 
     /**
@@ -72,7 +77,9 @@ class TopicController extends Controller
      */
     public function edit(Topic $topic)
     {
-        //
+        $this->authorize('update', $topic);
+        $categories  = Category::all();
+        return view('topics.edit', compact('topic', 'categories'));
     }
 
     /**
@@ -84,7 +91,9 @@ class TopicController extends Controller
      */
     public function update(UpdateTopicRequest $request, Topic $topic)
     {
-        //
+        $this->authorize('update', $topic);
+        $topic->update($request->validated());
+        return  redirect()->route('topics.show',$topic->id)->with('success','修改成功');
     }
 
     /**
@@ -95,7 +104,9 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
-        //
+        $this->authorize('delete', $topic);
+        $topic->delete();
+        return redirect()->route('topics.index')->with('success','帖子删除成功');
     }
 
     public function uploadImage(Request $request,ImageUploadHandler $uploader)
@@ -106,11 +117,11 @@ class TopicController extends Controller
             'file_path'=>'',
         ];
         if( $file = $request->upload_file ){
-            $result = $uploader->save( $file, 'topics', Auth::id(), 800);
+            $result = $uploader->save( $file, 'topics', Auth::id(), 800,800);
             if( $result ){
                 $data['success'] = true;
                 $data['msg'] = '上传成功';
-                $data['file_path'] = public_path().'/'.$result['path'];
+                $data['file_path'] = asset($result['path']);
             }
         }
         return $data;

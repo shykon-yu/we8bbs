@@ -28,7 +28,7 @@ class UsersController extends Controller
         $data = $request->validated();
         unset($data['email']);
         if( $request->avatar ){
-            $res = $uploader->save($request->avatar,'avatars',$user->id);
+            $res = $uploader->save($request->avatar,'avatars',$user->id,500,500,true);
             if( $res ){
                 $data['avatar'] = $res['path'];
             }

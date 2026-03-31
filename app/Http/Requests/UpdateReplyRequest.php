@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTopicRequest extends FormRequest
+class UpdateReplyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateTopicRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,18 +24,7 @@ class UpdateTopicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'max:200'],
-            'content' => ['required','max:2000'],
-            'category_id' => ['required','numeric','exists:categories,id'],
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'title' => '标题',
-            'content' => '内容',
-            'category_id' => '分类',
+            //
         ];
     }
 }

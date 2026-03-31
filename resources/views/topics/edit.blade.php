@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','发布帖子')
+@section('title','编辑帖子')
 @section('editor_css')
     @vite(['resources/css/editor.css'])
 {{--    <link rel="stylesheet" href="/editor/css/simditor.css">--}}
@@ -22,29 +22,30 @@
                 <div class="card-header ">
                     <h3 class="pt-2 text-center">
                         <i class="fa-solid fa-pencil"></i>
-                        发布帖子
+                        编辑帖子
                     </h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('topics.store')}}" method="POST" accept-charset="UTF-8" >
+                    <form action="{{route('topics.update',$topic->id)}}" method="POST" accept-charset="UTF-8" >
                         @csrf
+                        @method('PATCH')
                         @include('shared._errors')
                         <div class="mb-3">
                             <label for="title" class="form-label">帖子标题</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="请输入帖子标题" value="{{old('title')}}">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="请输入帖子标题" value="{{old('title',$topic->title)}}">
                         </div>
                         <div class="mb-3">
                             <label for="category_id" class="form-label">所属分类</label>
                             <select name="category_id" class="form-select" aria-label="选择分类">
                                 <option selected>请选择分类</option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    <option value="{{$category->id}}" {{$topic->category_id == $category->id ? 'selected' : ''}}>{{$category->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="content" class="form-label">帖子内容</label>
-                            <textarea name="content"  placeholder="请输入帖子内容" class="form-control" id="editor" rows="3">{{old('content')}}</textarea>
+                            <textarea name="content"  placeholder="请输入帖子内容" class="form-control" id="editor" rows="3">{{old('content',$topic->content)}}</textarea>
                         </div>
                         <script>
                             // 等页面 完全 加载完毕再执行
@@ -68,7 +69,7 @@
                         </script>
                         <hr>
                         <div class="mb-3 text-center">
-                            <button type="submit" class="btn btn-primary">提交</button>
+                            <button type="submit" class="btn btn-primary">修改</button>
                         </div>
                     </form>
                 </div>
