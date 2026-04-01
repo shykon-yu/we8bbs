@@ -1,6 +1,6 @@
 <ul class="list-group list-group-flush">
     @foreach($replies as $reply)
-        <li class="list-group-item d-flex align-items-center">
+        <li class="list-group-item d-flex align-items-center" id="reply{{$reply->id}}">
             <a href="{{route('users.show',$reply->user->id)}}" class="flex-shrink-0">
                 <img src="{{asset($reply->user->avatar)}}" alt="avatar"  class="img-thumbnail" width="50"/>
             </a>

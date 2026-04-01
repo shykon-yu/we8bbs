@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Reply;
 use App\Models\Topic;
+use App\Notifications\TopicReplied;
 
 class ReplyObserver
 {
@@ -15,6 +16,7 @@ class ReplyObserver
     public function saved(Reply $reply)
     {
         $reply->topic->updateReplyCount();
+        $reply->topic->user->topicNotify(new TopicReplied($reply));
     }
 
     public function deleted(Reply $reply)
