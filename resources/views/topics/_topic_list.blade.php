@@ -35,9 +35,10 @@
             {{--                            <span class="badge text-bg-secondary">Secondary</span>--}}
         @endforeach
     </ul>
-    <div>
-        {{ $topics->withQueryString()->links() }}
-    </div>
+    @include('shared._page',['data'=>$topics])
+{{--    <div>--}}
+{{--        {{ $topics->withQueryString()->links() }}--}}
+{{--    </div>--}}
 @else
     @include('shared._no_data',['info'=>'无帖子'])
 

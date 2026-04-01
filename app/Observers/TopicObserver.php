@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Handlers\TranslateTopicTitleHandler;
 use App\Jobs\TranslateSlug;
 use App\Models\Topic;
+use Illuminate\Support\Facades\DB;
 
 class TopicObserver
 {
@@ -20,5 +21,9 @@ class TopicObserver
             //$topic->slug = app(TranslateTopicTitleHandler::class)->translate($topic->title);
             dispatch(new TranslateSlug($topic));
         }
+    }
+
+    public function deleting(Topic $topic){
+        DB::table('replies')->where('topic_id', $topic->id)->delete();
     }
 }

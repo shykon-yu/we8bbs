@@ -70,6 +70,12 @@
                     </div>
                 </div>
             </div>
+            <div class="card mt-2">
+                @includeWhen(Auth::check(),'topics._reply_create',['topic'=>$topic])
+            </div>
+            <div class="card mt-2">
+                @include('topics._reply_list',['replies'=>$topic->replies()->with('user')->recent()->paginate(10)])
+            </div>
         </div>
     </div>
 @stop

@@ -13,7 +13,7 @@ class StoreReplyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class StoreReplyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'content' => ['required','between:2,2000'],
+        ];
+    }
+    public function attributes(){
+        return [
+            'content' => '评论内容',
         ];
     }
 }
