@@ -57,3 +57,6 @@ Route::resource('categories',\App\Http\Controllers\CategoriesController::class)-
 
 //帖子回复资源路由
 Route::resource('replies',\App\Http\Controllers\ReplyController::class)->only(['store','destroy'])->middleware('auth');
+
+//消息通知
+Route::resource('notifications',\App\Http\Controllers\NotificationController::class)->only(['index']);

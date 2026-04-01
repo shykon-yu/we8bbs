@@ -41,6 +41,16 @@
                         发帖
                     </a>
                 </li>
+                <li class="nav-item d-flex align-items-center">
+                    <a class="text-decoration-none px-2 text-{{Auth::user()->notification_count > 0 ? 'danger' : 'secondary'}} d-flex align-items-center"
+                       href="{{route('notifications.index')}}"
+                       title="消息通知">
+                        <i class="fa-solid fa-bell me-1"></i>
+                        <span class="badge rounded-pill  text-bg-{{Auth::user()->notification_count > 0 ? 'danger' : 'secondary'}}">
+                                {{Auth::user()->notification_count}}
+                            </span>
+                    </a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="{{asset(Auth::user()->avatar)}}" width="40" alt="avatar" class="img-thumbnail"/>
