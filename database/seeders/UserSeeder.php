@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
     {
         \App\Models\User::factory(10)->create();
         $user = User::find(1);
+        $user->assignRole('Founder');
         $user->name = 'Sanji';
         $user->email = '28705227@qq.com';
         $user->avatar = 'fakers/avatars/1.png';
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
         $user->save();
 
         $user = User::find(2);
+        $user->assignRole('Maintainer');
         $user->name = 'Lily';
         $user->email = 'Lily@qq.com';
         $user->avatar = 'fakers/avatars/2.png';
