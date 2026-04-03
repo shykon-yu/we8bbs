@@ -11,7 +11,6 @@ class RootController extends Controller
 {
     public function index(ImageUploadHandler $uploader)
     {
-        //$user = User::i
         return view('pages.home');
     }
 }
