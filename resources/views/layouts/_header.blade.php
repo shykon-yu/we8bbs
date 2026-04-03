@@ -35,6 +35,14 @@
                     </li>
                 </ul>
             @else
+                @can( 'manage_contents' )
+                    <li class="nav-item d-flex align-items-center  me-3">
+                        <a class="text-primary text-decoration-none d-flex align-items-center gap-1" href="{{url(config('administrator.uri'))}}" title="后台管理">
+                            后台
+                        </a>
+                    </li>
+                @endcan
+
                 <li class="nav-item d-flex align-items-center  me-3">
                     <a href="{{route('topics.create')}}" title="我要发帖" class="text-primary text-decoration-none d-flex align-items-center gap-1">
                         <i class="fa-solid fa-plus"></i>
