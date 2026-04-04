@@ -9,20 +9,23 @@ return [
     },
     'columns'=>[
         'id'=>[
-            'title'=>'ID',
+            'title'=>'ID'
         ],
         'name'=>[
-            'title'=>'角色名称',
-            'sortable'=>false,
+            'title'=>'角色名称'
+        ],
+        'permissions'=>[
+            'title'=>'权限',
             'output'=>function($value,$model){
                 $result = [];
                 foreach ($model->permissions as $permission){
                     $result[] = $permission->name;
                 }
-                return empty($result) ? 'N/A' : implode(', ',$result);
-            }
-        ],
+                return empty($result) ? 'N/A' : implode(' , ',$result);
 
+            },
+            'sortable'=>false
+        ],
         'operation'=>[
             'title'=>'管理',
             'sortable'=>false
@@ -33,20 +36,25 @@ return [
             'title'=>'角色名称'
         ],
         'permissions'=>[
-            'title' =>'用户角色',
-            'type' =>'relationship',
-            'name_field' =>'name'
-        ],
+            'type'=>'relationship',
+            'title'=>'权限',
+            'name_field'=>'name'
+        ]
     ],
     'filters'=>[
         'id'=>[
-            'title'=>'用户ID'
+            'title'=>'ID',
         ],
         'name'=>[
-            'title'=>'用户名'
-        ],
-        'email'=>[
-            'title'=>'用户邮箱'
+            'title'=>'角色名称'
         ]
+    ],
+    'rules'=>[
+        'name'=>'required|max:30|unique:roles,name'
+    ],
+    'messages'=>[
+        'name.required'=>'角色名称必须填',
+        'name.max'=>'角色名称不能超过30个字',
+        'name.unique'=>'角色名称已存在'
     ]
 ];

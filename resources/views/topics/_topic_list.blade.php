@@ -3,7 +3,7 @@
         @foreach($topics as $topic)
             <li class="list-group-item border-0 border-bottom d-flex align-items-center">
                 <a href="{{route('users.show',$topic->user_id)}}" class="flex-shrink-0 text-decoration-none">
-                    <img src="{{asset($topic->user->avatar)}}" alt="avatar" class="img-thumbnail" width="50"/>
+                    <img src="{{ asset($topic->user?->avatar ?? 'default-avatar.png') }}" alt="avatar" class="img-thumbnail" width="50"/>
                 </a>
                 <div class="flex-grow-1 px-2 d-flex flex-column">
                     <a class="text-decoration-none text-success"

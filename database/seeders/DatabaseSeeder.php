@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//        Topic::withoutEvents(function () {
+        Topic::withoutEvents(function () {
 
             $this->call([
                 UserSeeder::class,
@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
                 ReplySeeder::class,
             ]);
 
-//        });
+        });
 //        $this->call([
 //           UserSeeder::class,
 //            TopicSeeder::class,
