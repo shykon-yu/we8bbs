@@ -1,0 +1,43 @@
+<?php
+use App\Models\Link;
+return [
+    'title'=>'站长推荐',
+    'single'=>'站长推荐',
+    'model'=>Link::class,
+    'permission'=>function(){
+        return Auth::user()->hasRole('Founder');
+    },
+    'columns'=>[
+        'id'=>[
+            'title'=>'ID',
+        ],
+        'title'=>[
+            'title'=>'标题',
+            'sortable'=>false
+        ],
+        'link'=>[
+            'title'=>'url链接',
+            'sortable'=>false
+        ],
+        'operation'=>[
+            'title'=>'管理',
+            'sortable'=>false
+        ]
+    ],
+    'edit_fields'=>[
+        'title'=>[
+            'title'=>'标题',
+        ],
+        'link'=>[
+            'title'=>'url链接',
+        ],
+    ],
+    'filters'=>[
+        'id'=>[
+            'title'=>'ID'
+        ],
+        'title'=>[
+            'title'=>'标题',
+        ],
+    ]
+];

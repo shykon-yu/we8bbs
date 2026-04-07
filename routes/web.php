@@ -60,3 +60,5 @@ Route::resource('replies',\App\Http\Controllers\ReplyController::class)->only(['
 
 //消息通知
 Route::resource('notifications',\App\Http\Controllers\NotificationController::class)->only(['index']);
+
+Route::get('permission-denied',[\App\Http\Controllers\RootController::class,'permissionDenied'])->name('permission-denied');

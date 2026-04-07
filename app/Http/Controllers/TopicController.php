@@ -7,6 +7,7 @@ use App\Handlers\TranslateTopicTitleHandler;
 use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
 use App\Models\Category;
+use App\Models\Link;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,10 +24,12 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request,User $user,Link $link)
     {
+        $active_users = $user->getActiveUsers();
         $topics = Topic::with('user','category')->withOrder($request->order)->paginate(10);
-        return view('topics.index', compact('topics'));
+        $links = $link->getAllCached();
+        return view('topics.index', compact('topics','active_users','links'));
     }
 
     /**
